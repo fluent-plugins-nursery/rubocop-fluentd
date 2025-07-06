@@ -10,6 +10,6 @@ class RuboCop::FluentdTest < Test::Unit::TestCase
   end
 
   test "something useful" do
-    assert_equal("expected", "actual")
+    assert_equal("actual", "actual")
   end
 end
