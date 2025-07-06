@@ -1,0 +1,7 @@
+plugins:
+  - rubocop-internal_affairs
+  - rubocop-fluentd
+
+Naming/FileName:
+  Exclude:
+    - lib/rubocop-fluentd.rb
