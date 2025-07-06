@@ -20,7 +20,7 @@ gem install rubocop-fluentd
 
 Configure `.rubocop.yml` like this:
 
-```
+```yaml
 Lint/FluentdPluginLogLevel:
   Enabled: true
 ```
