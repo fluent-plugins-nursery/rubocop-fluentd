@@ -2,10 +2,10 @@
 
 require "test_helper"
 
-class Rubocop::FluentdTest < Test::Unit::TestCase
+class RuboCop::FluentdTest < Test::Unit::TestCase
   test "VERSION" do
     assert do
-      ::Rubocop::Fluentd.const_defined?(:VERSION)
+      ::RuboCop::Fluentd.const_defined?(:VERSION)
     end
   end
 
