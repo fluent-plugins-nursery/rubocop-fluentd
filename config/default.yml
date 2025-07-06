@@ -1,6 +1,6 @@
 # Write it!
 
 Lint/PluginLogLevel:
-  Description: 'TODO: Write a description of the cop.'
+  Description: 'Warn global scope `$log` was used in Fluentd plugin. The scope of plugin log level was supported since Fluentd 0.10.43'
   Enabled: pending
   VersionAdded: '<<next>>'
