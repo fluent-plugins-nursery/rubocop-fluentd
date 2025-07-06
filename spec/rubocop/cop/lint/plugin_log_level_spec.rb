@@ -3,19 +3,33 @@
 RSpec.describe RuboCop::Cop::Lint::PluginLogLevel, :config do
   let(:config) { RuboCop::Config.new }
 
-  # TODO: Write test code
-  #
-  # For example
-  it 'registers an offense when using `#bad_method`' do
-    expect_offense(<<~RUBY)
-      bad_method
-      ^^^^^^^^^^ Use `#good_method` instead of `#bad_method`.
+  it 'registers an offense when using `$log`' do
+    %w[trace debug info warn error fatal].each do |keyword|
+      expect_offense(<<~RUBY, keyword: keyword)
+        $log.%{keyword}("something")
+        ^{keyword}^^^^^^^^^^^^^^^^^^ Lint/PluginLogLevel: Use plugin scope `log` instead of global scope `$log`.
+      RUBY
+    end
+  end
+
+  it 'does not register an offense when using `log`' do
+    expect_no_offenses(<<~RUBY)
+      log.info("something")
     RUBY
   end
 
-  it 'does not register an offense when using `#good_method`' do
+  it 'registers an offense when using `$log` {...}' do
+    %w[trace debug info warn error fatal].each do |keyword|
+      expect_offense(<<~RUBY, keyword: keyword)
+        $log.%{keyword} { "something" }
+        ^{keyword}^^^^^^^^^^^^^^^^^^^^^ Lint/PluginLogLevel: Use plugin scope `log` instead of global scope `$log`.
+      RUBY
+    end
+  end
+
+  it 'does not register an offense when using `log` {...}' do
     expect_no_offenses(<<~RUBY)
-      good_method
+      log.info { "something" }
     RUBY
   end
 end
