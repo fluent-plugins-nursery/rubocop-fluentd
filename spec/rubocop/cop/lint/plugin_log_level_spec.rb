@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-RSpec.describe RuboCop::Cop::Lint::FluentPluginLogLevel, :config do
+RSpec.describe RuboCop::Cop::Lint::FluentdPluginLogLevel, :config do
   let(:config) { RuboCop::Config.new }
 
   it 'registers an offense when using `$log`' do
     %w[trace debug info warn error fatal].each do |keyword|
       expect_offense(<<~RUBY, keyword: keyword)
         $log.%{keyword}("something")
-        ^{keyword}^^^^^^^^^^^^^^^^^^ Lint/FluentPluginLogLevel: Use plugin scope `log` instead of global scope `$log`.
+        ^{keyword}^^^^^^^^^^^^^^^^^^ Lint/FluentdPluginLogLevel: Use plugin scope `log` instead of global scope `$log`.
       RUBY
     end
   end
@@ -22,7 +22,7 @@ RSpec.describe RuboCop::Cop::Lint::FluentPluginLogLevel, :config do
     %w[trace debug info warn error fatal].each do |keyword|
       expect_offense(<<~RUBY, keyword: keyword)
         $log.%{keyword} { "something" }
-        ^{keyword}^^^^^^^^^^^^^^^^^^^^^ Lint/FluentPluginLogLevel: Use plugin scope `log` instead of global scope `$log`.
+        ^{keyword}^^^^^^^^^^^^^^^^^^^^^ Lint/FluentdPluginLogLevel: Use plugin scope `log` instead of global scope `$log`.
       RUBY
     end
   end

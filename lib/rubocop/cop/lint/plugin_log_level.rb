@@ -38,7 +38,7 @@ module RuboCop
       #   $log.trace { "..." }
       #   $log.debug { "..." }
       #
-      class FluentPluginLogLevel < Base
+      class FluentdPluginLogLevel < Base
         include IgnoredNode
 
         MSG = 'Use plugin scope `log` instead of global scope `$log`.'
