@@ -18,7 +18,12 @@ gem install rubocop-fluentd
 
 ## Usage
 
-TODO: Write usage instructions here
+Configure `.rubocop.yml` like this:
+
+```
+Lint/FluentdPluginLogLevel:
+  Enabled: true
+```
 
 ## Development
 
