@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary = "RuboCop rules for Fluentd plugin"
   spec.description = "Collection rules for Fluentd plugin coding style"
   spec.homepage = "https://github.com/kenhys/rubocop-fluentd"
-  spec.license = "MIT"
+  spec.license = "Apache-2.0"
   spec.required_ruby_version = ">= 2.7.0"
 
   spec.metadata["allowed_push_host"] = "https://rubygems.org"
