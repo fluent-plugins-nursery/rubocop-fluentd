@@ -4,3 +4,8 @@ Lint/FluentdPluginLogLevel:
   Description: 'Warn global scope `$log` was used in Fluentd plugin. The scope of plugin log level was supported since Fluentd 0.10.43'
   Enabled: true
   VersionAdded: '0.1.0'
+
+Performance/FluentdPluginLogStringInterpolation:
+  Description: 'Warn if log message contains string interpolation. Use block to delay needless string interpolation'
+  Enabled: true
+  VersionAdded: '0.1.0'
