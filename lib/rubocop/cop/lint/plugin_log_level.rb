@@ -3,14 +3,8 @@
 module RuboCop
   module Cop
     module Lint
-      # Examples must have valid Ruby syntax. Do not use upticks.
       #
-      # @safety
-      #   Delete this section if the cop is not unsafe (`Safe: false` or
-      #   `SafeAutoCorrect: false`), or use it to explain how the cop is
-      #   unsafe.
-      #
-      # @example Lint/PluginLogLevel: (default)
+      # @example Lint/FluentdPluginLogLevel: (default)
       #
       #   # bad
       #   $log.trace("...")
@@ -28,7 +22,7 @@ module RuboCop
       #   log.error("...")
       #   log.fatal("...")
       #
-      # @example Lint/PluginLogLevel: block
+      # @example Lint/FluentdPluginLogLevel: block
       #
       #   # bad
       #   $log.trace("...")
