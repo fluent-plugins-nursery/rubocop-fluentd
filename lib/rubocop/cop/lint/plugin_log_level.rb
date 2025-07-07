@@ -57,11 +57,6 @@ module RuboCop
           (block (send gvar ...) ...)
         PATTERN
 
-        # Called on every `send` node (method call) while walking the AST.
-        # TODO: remove this method if inspecting `send` nodes is unneeded for your cop.
-        # By default, this is aliased to `on_csend` as well to handle method calls
-        # with safe navigation, remove the alias if this is unnecessary.
-        # If kept, ensure your tests cover safe navigation as well!
         def on_send(node)
           return if part_of_ignored_node?(node)
           return unless global_reciever_method?(node)
