@@ -21,7 +21,7 @@ gem install rubocop-fluentd
 Configure `.rubocop.yml` like this:
 
 ```yaml
-Lint/FluentdPluginLogLevel:
+Lint/FluentdPluginLogScope:
   Enabled: true
 Performance/FluentdPluginLogStringInterpolation:
   Enabled: true
