@@ -23,6 +23,8 @@ Configure `.rubocop.yml` like this:
 ```yaml
 Lint/FluentdPluginLogScope:
   Enabled: true
+Lint/FluentdPluginConfigParamDefaultTime:
+  Enabled: true
 Performance/FluentdPluginLogStringInterpolation:
   Enabled: true
 ```

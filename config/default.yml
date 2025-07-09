@@ -1,5 +1,10 @@
 # Write it!
 
+Lint/FluentdPluginConfigParamDefaultTime:
+  Description: 'Warn the default value of :time for config_param is string'
+  Enabled: true
+  VersionAdded: '0.1.1'
+
 Lint/FluentdPluginLogLevel:
   Description: 'Warn global scope `$log` was used in Fluentd plugin. The scope of plugin log level was supported since Fluentd 0.10.43'
   Enabled: true
