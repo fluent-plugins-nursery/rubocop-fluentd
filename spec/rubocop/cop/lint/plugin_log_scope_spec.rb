@@ -3,12 +3,15 @@
 RSpec.describe RuboCop::Cop::Lint::FluentdPluginLogScope, :config do
   let(:config) { RuboCop::Config.new }
 
-  it 'registers an offense when using `$log`' do
+  it 'registers an offense when using `$log` without block' do
     %w[trace debug info warn error fatal].each do |keyword|
       expect_offense(<<~RUBY, keyword: keyword)
         $log.%{keyword}("something")
         ^{keyword}^^^^^^^^^^^^^^^^^^ Lint/FluentdPluginLogScope: Use plugin scope `log` instead of global scope `$log`.
       RUBY
+
+      expected = "log.#{keyword} { \"something\" }\n"
+      expect_correction(expected)
     end
   end
 
@@ -23,6 +26,10 @@ RSpec.describe RuboCop::Cop::Lint::FluentdPluginLogScope, :config do
       expect_offense(<<~RUBY, keyword: keyword)
         $log.%{keyword} { "something" }
         ^{keyword}^^^^^^^^^^^^^^^^^^^^^ Lint/FluentdPluginLogScope: Use plugin scope `log` instead of global scope `$log`.
+      RUBY
+
+      expect_correction(<<~RUBY)
+        log.#{keyword} { "something" }
       RUBY
     end
   end

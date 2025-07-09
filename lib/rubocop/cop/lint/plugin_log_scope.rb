@@ -34,6 +34,7 @@ module RuboCop
       #
       class FluentdPluginLogScope < Base
         include IgnoredNode
+        extend AutoCorrector
 
         MSG = 'Use plugin scope `log` instead of global scope `$log`.'
 
@@ -43,34 +44,55 @@ module RuboCop
 
         # @!method global_log_method?(node)
         def_node_matcher :global_reciever_method?, <<~PATTERN
-          (send gvar ...)
+          (send gvar $_ $(...))
         PATTERN
 
         # @!method global_reciever_block_method?(node)
         def_node_matcher :global_reciever_block_method?, <<~PATTERN
-          (block (send gvar ...) ...)
+          (block (send gvar $_) _ $(...))
         PATTERN
 
         def on_send(node)
           return if part_of_ignored_node?(node)
-          return unless global_reciever_method?(node)
+          expression = global_reciever_method?(node)
+          return unless expression
 
           # $log.method(...)
           if send_global_log_node?(node)
-            add_offense(node)
+            add_offense(node) do |corrector|
+              method = expression.first
+              literal = expression.last
+              source_code = "log.#{method} { #{literal.source} }"
+              # $log.xxx => log.xxx
+              corrector.replace(node, source_code)
+            end
           end
         end
 
         def on_block(node)
-          return unless global_reciever_block_method?(node)
+          expression = global_reciever_block_method?(node)
+          return unless expression
 
           # $log.method { ... }
           send_node = node.children.first
           if send_global_log_node?(send_node)
-            add_offense(node)
+            add_offense(node) do |corrector|
+              source_code = "log.#{block_log_level_method(node)}"
+              # $log.xxx => log.xxx
+              corrector.replace(node.children.first, source_code)
+            end
             # mark do not match on_send further more
             ignore_node(node)
           end
+        end
+
+        def log_level_method(node)
+          node.children[1]
+        end
+
+        def block_log_level_method(node)
+          send_node = node.children.first
+          send_node.children.last
         end
 
         def send_global_log_node?(node)
@@ -81,9 +103,6 @@ module RuboCop
         def global_log_reciever?(node)
           node.name == :$log
         end
-
-        alias on_csend on_send
-        alias on_cblock on_block
       end
     end
   end
