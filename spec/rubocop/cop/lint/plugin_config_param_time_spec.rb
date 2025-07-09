@@ -3,10 +3,50 @@
 RSpec.describe RuboCop::Cop::Lint::FluentdPluginConfigParamDefaultTime, :config do
   let(:config) { RuboCop::Config.new }
 
-  it 'registers an offense when using string for default value' do
+  KLASS = "Lint/FluentdPluginConfigParamDefaultTime"
+  WARN_MESSAGE = "#{'^' * 47} #{KLASS}: The value of :interval must be `integer` or `float` for default time value."
+
+  it 'registers an offense when using 1s for default value' do
+    expect_offense(<<~RUBY)
+      config_param :interval, :time, :default => "1s"
+      #{WARN_MESSAGE}
+    RUBY
+
+    expect_correction(<<~RUBY)
+      config_param :interval, :time, :default => 1
+    RUBY
+  end
+
+  it 'registers an offense when using 1m for default value' do
+    expect_offense(<<~RUBY)
+      config_param :interval, :time, :default => "1m"
+      #{WARN_MESSAGE}
+    RUBY
+
+    expect_correction(<<~RUBY)
+      config_param :interval, :time, :default => 60
+    RUBY
+  end
+
+  it 'registers an offense when using 1h for default value' do
     expect_offense(<<~RUBY)
       config_param :interval, :time, :default => "1h"
-      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Lint/FluentdPluginConfigParamDefaultTime: The value of :interval must be `integer` or `float` for default time value.
+      #{WARN_MESSAGE}
+    RUBY
+
+    expect_correction(<<~RUBY)
+      config_param :interval, :time, :default => 3600
+    RUBY
+  end
+
+  it 'registers an offense when using 1d for default value' do
+    expect_offense(<<~RUBY)
+      config_param :interval, :time, :default => "1d"
+      #{WARN_MESSAGE}
+    RUBY
+
+    expect_correction(<<~RUBY)
+      config_param :interval, :time, :default => 86400
     RUBY
   end
 
