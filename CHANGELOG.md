@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+* Transfer ownership to https://github.com/fluent-plugins-nursery/rubocop-fluentd
+
 ## 0.2.0 - 2025-07-10
 
 * Support autocorrect for the following custom cop
