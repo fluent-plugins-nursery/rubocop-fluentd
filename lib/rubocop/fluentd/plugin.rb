@@ -10,7 +10,7 @@ module RuboCop
         LintRoller::About.new(
           name: 'rubocop-fluentd',
           version: VERSION,
-          homepage: "https://github.com/kenhys/rubocop-fluentd",
+          homepage: "https://github.com/fluent-plugins-nursery/rubocop-fluentd",
           description: "Custom Cop for Fluentd plugins"
         )
       end

@@ -10,15 +10,15 @@ Gem::Specification.new do |spec|
 
   spec.summary = "RuboCop rules for Fluentd plugin"
   spec.description = "Collection rules for Fluentd plugin coding style"
-  spec.homepage = "https://github.com/kenhys/rubocop-fluentd"
+  spec.homepage = "https://github.com/fluent-plugins-nursery/rubocop-fluentd"
   spec.license = "Apache-2.0"
   spec.required_ruby_version = ">= 2.7.0"
 
   spec.metadata["allowed_push_host"] = "https://rubygems.org"
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://github.com/kenhys/rubocop-fluentd"
-  spec.metadata["changelog_uri"] = "https://github.com/kenhys/rubocop-fluentd/blob/main/CHANGELOG.md"
+  spec.metadata["source_code_uri"] = "https://github.com/fluent-plugins-nursery/rubocop-fluentd"
+  spec.metadata["changelog_uri"] = "https://github.com/fluent-plugins-nursery/rubocop-fluentd/blob/main/CHANGELOG.md"
 
   spec.metadata["rubygems_mfa_required"] = "true"
 
