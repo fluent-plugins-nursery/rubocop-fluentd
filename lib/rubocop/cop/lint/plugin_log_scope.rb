@@ -52,14 +52,32 @@ module RuboCop
           (block (send gvar $_) _ $(...))
         PATTERN
 
+        # @!method local_log_method?(node)
+        def_node_matcher :local_log_method?, <<~PATTERN
+          (send (send nil? :log) $_ $(...))
+        PATTERN
+
         def on_send(node)
           return if part_of_ignored_node?(node)
-          expression = global_reciever_method?(node)
-          return unless expression
-
-          # $log.method(...)
-          if send_global_log_node?(node)
-            add_offense(node) do |corrector|
+          global_expression = global_reciever_method?(node)
+          local_expression = local_log_method?(node)
+          return unless global_expression or local_expression
+          if global_expression and send_global_log_node?(node)
+            expression = global_expression
+            # $log.method(...)
+            message = 'Use plugin scope `log` instead of global scope `$log`.'
+            add_offense(node, message: MSG) do |corrector|
+              method = expression.first
+              literal = expression.last
+              source_code = "log.#{method} { #{literal.source} }"
+              # $log.xxx => log.xxx
+              corrector.replace(node, source_code)
+            end
+          elsif local_expression and send_local_log_node?(node)
+            # log.method "#{expansion}"
+            expression = local_expression
+            message = "Use block not to evaluate too long message"
+            add_offense(node, message: message) do |corrector|
               method = expression.first
               literal = expression.last
               source_code = "log.#{method} { #{literal.source} }"
@@ -102,6 +120,11 @@ module RuboCop
 
         def global_log_reciever?(node)
           node.name == :$log
+        end
+
+        def send_local_log_node?(node)
+          node.class == RuboCop::AST::SendNode and
+            node.children.last.class == RuboCop::AST::DstrNode
         end
       end
     end

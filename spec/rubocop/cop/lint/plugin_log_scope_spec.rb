@@ -21,6 +21,18 @@ RSpec.describe RuboCop::Cop::Lint::FluentdPluginLogScope, :config do
     RUBY
   end
 
+  it 'registers an offense when using log with variable expansion' do
+    keyword = "too long"
+    expect_offense(<<~RUBY, keyword: keyword)
+      log.info "something \#{keyword}"
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Lint/FluentdPluginLogScope: Use block not to evaluate too long message
+    RUBY
+
+    expect_correction(<<~RUBY)
+      log.info { "something \#{keyword}" }
+    RUBY
+  end
+
   it 'registers an offense when using `$log` {...}' do
     %w[trace debug info warn error fatal].each do |keyword|
       expect_offense(<<~RUBY, keyword: keyword)
