@@ -1,6 +1,9 @@
 ## [Unreleased]
 
+## 0.2.1 - 2025-07-15
+
 * Transfer ownership to https://github.com/fluent-plugins-nursery/rubocop-fluentd
+* Warn string interpolation which might contains too long message.
 
 ## 0.2.0 - 2025-07-10
 
