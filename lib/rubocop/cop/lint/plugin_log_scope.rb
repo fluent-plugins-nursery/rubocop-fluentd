@@ -39,8 +39,15 @@ module RuboCop
         MSG = 'Use plugin scope `log` instead of global scope `$log`.'
 
         # Detect only supported log level
-        RESTRICT_ON_SEND = %i[trace debug info warn error fatal].freeze
+        #RESTRICT_ON_SEND = %i[trace debug info warn error fatal].freeze
         RESTRICT_ON_BLOCK = %i[trace debug info warn error fatal].freeze
+
+        LOG_LEVELS = {'trace' => 0,
+                      'debug' => 1,
+                      'info' => 2,
+                      'warn' => 3,
+                      'error' => 4,
+                      'fatal' => 5}
 
         # @!method global_log_method?(node)
         def_node_matcher :global_reciever_method?, <<~PATTERN
@@ -77,6 +84,14 @@ module RuboCop
             # log.method "#{expansion}"
             expression = local_expression
             message = "Use block not to evaluate too long message"
+            method = expression.first
+            assume_level = cop_config['AssumeConfigLogLevel'] || 'info'
+            threshould = LOG_LEVELS[assume_level]
+
+            if LOG_LEVELS[method.to_s] >= threshould
+              # no need to apply offense because surely log will be emitted
+              return
+            end
             add_offense(node, message: message) do |corrector|
               method = expression.first
               literal = expression.last
