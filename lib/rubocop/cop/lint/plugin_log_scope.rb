@@ -71,10 +71,11 @@ module RuboCop
           return unless global_expression or local_expression
           if global_expression and send_global_log_node?(node)
             expression = global_expression
+            method = expression.first
+            return unless %i[trace debug info warn error fatal].freeze.include?(method)
             # $log.method(...)
             message = 'Use plugin scope `log` instead of global scope `$log`.'
             add_offense(node, message: MSG) do |corrector|
-              method = expression.first
               literal = expression.last
               source_code = "log.#{method} { #{literal.source} }"
               # $log.xxx => log.xxx
@@ -83,6 +84,16 @@ module RuboCop
           elsif local_expression and send_local_log_node?(node)
             # log.method "#{expansion}"
             expression = local_expression
+            method = expression.first
+            return unless %i[trace debug info warn error fatal].freeze.include?(method)
+
+            assume_level = cop_config['AssumeConfigLogLevel'] || 'info'
+            threshould = LOG_LEVELS[assume_level]
+
+            if LOG_LEVELS[method.to_s] >= threshould
+              # no need to apply offense because surely log will be emitted
+              return
+            end
             message = "Use block not to evaluate too long message"
             method = expression.first
             assume_level = cop_config['AssumeConfigLogLevel'] || 'info'

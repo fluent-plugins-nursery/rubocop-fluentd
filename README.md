@@ -22,6 +22,7 @@ Configure `.rubocop.yml` like this:
 
 ```yaml
 Lint/FluentdPluginLogScope:
+  AssumeConfigLogLevel: 'info'
   Enabled: true
 Lint/FluentdPluginConfigParamDefaultTime:
   Enabled: true
