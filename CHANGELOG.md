@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## 0.2.3 - 2025-07-22
+
+* `Lint/FluentdPluginLogScope`: Delay string evaluation if assumed log level is lower than info.
+
 ## 0.2.2 - 2025-07-18
 
 * `Lint/FluentdPluginLogScope`: Add `AssumeConfigLogLevel` property (`info` by default)
