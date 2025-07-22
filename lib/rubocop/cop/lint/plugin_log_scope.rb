@@ -77,7 +77,14 @@ module RuboCop
             message = 'Use plugin scope `log` instead of global scope `$log`.'
             add_offense(node, message: MSG) do |corrector|
               literal = expression.last
-              source_code = "log.#{method} { #{literal.source} }"
+              assume_level = cop_config['AssumeConfigLogLevel'] || 'info'
+              threshould = LOG_LEVELS[assume_level]
+              if LOG_LEVELS[method.to_s] >= threshould
+                # no need to delay evaluation
+                source_code = "log.#{method} #{literal.source}"
+              else
+                source_code = "log.#{method} { #{literal.source} }"
+              end
               # $log.xxx => log.xxx
               corrector.replace(node, source_code)
             end
