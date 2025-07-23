@@ -11,6 +11,11 @@ Lint/FluentdPluginLogLevel:
   AssumeConfigLogLevel: 'info'
   VersionAdded: '0.1.0'
 
+Lint/FluentdPluginIgnoreStandardError:
+  Description: 'Warn if StandardError was shelved in #write. It makes hard to resume from recoverable error.'
+  Enabled: true
+  VersionAdded: '0.2.4'
+
 Performance/FluentdPluginLogStringInterpolation:
   Description: 'Warn if log message contains string interpolation. Use block to delay needless string interpolation'
   Enabled: true
