@@ -26,6 +26,8 @@ Lint/FluentdPluginLogScope:
   Enabled: true
 Lint/FluentdPluginConfigParamDefaultTime:
   Enabled: true
+Lint/FluentdPluginIgnoreStandardError:
+  Enabled: true
 Performance/FluentdPluginLogStringInterpolation:
   Enabled: true
 ```

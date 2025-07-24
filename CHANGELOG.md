@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## 0.2.4 - 2025-07-24
+
+* `Lint/FluentdPluginIgnoreStandardError`: Warn if `StandardError` was ignored in #write.
+
 ## 0.2.3 - 2025-07-22
 
 * `Lint/FluentdPluginLogScope`: Delay string evaluation if assumed log level is lower than info.
