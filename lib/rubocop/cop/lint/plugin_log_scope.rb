@@ -3,7 +3,6 @@
 module RuboCop
   module Cop
     module Lint
-      #
       # @example Lint/FluentdPluginLogLevel: (default)
       #
       #   # bad
