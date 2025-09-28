@@ -19,7 +19,7 @@ module RuboCop
 
         RESTRICT_ON_SEND = %i[config_param].freeze
 
-        # @!method config_param_default_time?(node)
+        # @!method config_param_default_string_time?(node)
         def_node_matcher :config_param_default_string_time?, <<~PATTERN
           (send nil? :config_param (sym _) (sym :time) (hash (pair (sym :default) (str _))))
         PATTERN
