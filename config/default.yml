@@ -5,7 +5,7 @@ Lint/FluentdPluginConfigParamDefaultTime:
   Enabled: true
   VersionAdded: '0.1.1'
 
-Lint/FluentdPluginLogLevel:
+Lint/FluentdPluginLogScope:
   Description: 'Warn global scope `$log` was used in Fluentd plugin. The scope of plugin log level was supported since Fluentd 0.10.43'
   Enabled: true
   AssumeConfigLogLevel: 'info'
