@@ -48,7 +48,7 @@ module RuboCop
                       'error' => 4,
                       'fatal' => 5}
 
-        # @!method global_log_method?(node)
+        # @!method global_reciever_method?(node)
         def_node_matcher :global_reciever_method?, <<~PATTERN
           (send gvar $_ $(...))
         PATTERN

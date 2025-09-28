@@ -52,7 +52,7 @@ module RuboCop
           (def :write (args (arg _)) $_)
         PATTERN
 
-        # @!method rescue_ndoe?(node)
+        # @!method rescue_node?(node)
         def_node_matcher :rescue_node?, <<~PATTERN
           (kwbegin (rescue $_+))
         PATTERN
