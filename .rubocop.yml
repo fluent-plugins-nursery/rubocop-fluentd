@@ -1,6 +1,39 @@
 plugins:
   - rubocop-internal_affairs
   - rubocop-fluentd
+  - rubocop-performance
+
+AllCops:
+  Exclude:
+    - '*.rb'
+
+Lint:
+  Enabled: false
+
+Style:
+  Enabled: false
+
+Gemspec:
+  Enabled: false
+
+Naming:
+  Enabled: false
+
+Layout:
+  Enabled: false
+
+Metrics:
+  Enabled: false
+
+Security:
+  Enabled: true
+
+Performance:
+  Enabled: true
+
+#
+# False positive or exceptional cases
+#
 
 Naming/FileName:
   Exclude:
