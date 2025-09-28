@@ -106,10 +106,6 @@ module RuboCop
             assume_level = cop_config['AssumeConfigLogLevel'] || 'info'
             threshould = LOG_LEVELS[assume_level]
 
-            if LOG_LEVELS[method.to_s] >= threshould
-              # no need to apply offense because surely log will be emitted
-              return
-            end
             add_offense(node, message: message) do |corrector|
               method = expression.first
               literal = expression.last
