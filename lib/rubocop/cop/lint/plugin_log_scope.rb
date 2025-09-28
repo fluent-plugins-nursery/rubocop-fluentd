@@ -74,7 +74,7 @@ module RuboCop
             return unless %i[trace debug info warn error fatal].freeze.include?(method)
             # $log.method(...)
             message = 'Use plugin scope `log` instead of global scope `$log`.'
-            add_offense(node, message: MSG) do |corrector|
+            add_offense(node) do |corrector|
               literal = expression.last
               assume_level = cop_config['AssumeConfigLogLevel'] || 'info'
               threshould = LOG_LEVELS[assume_level]
