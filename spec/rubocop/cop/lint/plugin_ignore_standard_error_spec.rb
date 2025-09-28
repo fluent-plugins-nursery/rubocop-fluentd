@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::Lint::FluentdPluginIgnoreStandardError, :config do
-  let(:config) { RuboCop::Config.new }
 
   it 'warn if plugin #write ignores StandardError with assignment' do
     message = "Should not rescue StandardError in #write in usually. StandardError should be handled in Fluentd side. Do it if you know what you are doing."
@@ -13,7 +12,7 @@ RSpec.describe RuboCop::Cop::Lint::FluentdPluginIgnoreStandardError, :config do
             begin
               p "something"
             rescue StandardError => e
-            ^^^^^^^^^^^^^^^^^^^^^^^^^ Lint/FluentdPluginIgnoreStandardError: #{message}
+            ^^^^^^^^^^^^^^^^^^^^^^^^^ #{message}
               log.error "Unexpected error"
             end
           end
@@ -32,7 +31,7 @@ RSpec.describe RuboCop::Cop::Lint::FluentdPluginIgnoreStandardError, :config do
             begin
               p "something"
             rescue StandardError
-            ^^^^^^^^^^^^^^^^^^^^ Lint/FluentdPluginIgnoreStandardError: #{message}
+            ^^^^^^^^^^^^^^^^^^^^ #{message}
               log.error "Unexpected error"
             end
           end
@@ -55,7 +54,7 @@ RSpec.describe RuboCop::Cop::Lint::FluentdPluginIgnoreStandardError, :config do
             rescue SomeError
               p log.error "Unexpected SomeError"
             rescue StandardError
-            ^^^^^^^^^^^^^^^^^^^^ Lint/FluentdPluginIgnoreStandardError: #{message}
+            ^^^^^^^^^^^^^^^^^^^^ #{message}
               log.error "Unexpected error"
             end
           end
@@ -77,7 +76,7 @@ RSpec.describe RuboCop::Cop::Lint::FluentdPluginIgnoreStandardError, :config do
             rescue SomeError
               p log.error "Unexpected SomeError"
             rescue StandardError
-            ^^^^^^^^^^^^^^^^^^^^ Lint/FluentdPluginIgnoreStandardError: #{message}
+            ^^^^^^^^^^^^^^^^^^^^ #{message}
               log.error "Unexpected error"
             end
           end

@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::Performance::FluentdPluginLogStringInterpolation, :config do
-  let(:config) { RuboCop::Config.new }
 
   it 'registers an offense when using string interpolation for `log` without block' do
     message = "*" * 1024
     %w[trace debug info warn error fatal].each do |keyword|
       expect_offense(<<~RUBY, keyword: keyword, message: message)
         log.%{keyword}("\#{message}")
-        ^{keyword}^^^^^^^^^^^^^^^^^^ Performance/FluentdPluginLogStringInterpolation: Use log.%{keyword} { "..." } instead of log.%{keyword}("...")
+        ^{keyword}^^^^^^^^^^^^^^^^^^ Use log.%{keyword} { "..." } instead of log.%{keyword}("...")
       RUBY
     end
   end
