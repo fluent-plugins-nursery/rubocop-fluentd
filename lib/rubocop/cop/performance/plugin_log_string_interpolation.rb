@@ -3,7 +3,6 @@
 module RuboCop
   module Cop
     module Performance
-      #
       # @example FluentdPluginLogStringInterpolation: (default)
       #
       #   # bad

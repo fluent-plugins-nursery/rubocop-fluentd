@@ -58,7 +58,7 @@ RSpec.describe RuboCop::Cop::Lint::FluentdPluginLogScope, :config do
 
     it 'does not register an offense when using `log.info` "\#{keyword}"' do
       %w[info warn error fatal].each do |keyword|
-        expect_no_offenses(<<~RUBY, keyword: keyword)
+        expect_no_offenses(<<~RUBY)
           log.#{keyword} "something \#{keyword}"
         RUBY
       end
@@ -73,6 +73,7 @@ RSpec.describe RuboCop::Cop::Lint::FluentdPluginLogScope, :config do
           log.#{keyword} "something \#{keyword}"
           ^{keyword}^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use block not to evaluate too long message
         RUBY
+
         expect_correction(<<~RUBY)
           log.#{keyword} { "something \#{keyword}" }
         RUBY
@@ -89,9 +90,9 @@ RSpec.describe RuboCop::Cop::Lint::FluentdPluginLogScope, :config do
       end
       it 'no alert over info level using `log.xxx "..."` with AssumeConfigLogLevel warn' do
         %w[info warn error].each do |keyword|
-          expect_no_offenses(<<~RUBY, keyword: keyword)
-          log.#{keyword} "something"
-        RUBY
+          expect_no_offenses(<<~RUBY)
+            log.#{keyword} "something"
+          RUBY
         end
       end
 
@@ -101,6 +102,7 @@ RSpec.describe RuboCop::Cop::Lint::FluentdPluginLogScope, :config do
             log.#{keyword} "something \#{keyword}"
             ^{keyword}^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use block not to evaluate too long message
           RUBY
+
           expect_correction(<<~RUBY)
             log.#{keyword} { "something \#{keyword}" }
           RUBY
