@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe RuboCop::Cop::Lint::FluentdPluginConfigParamDefaultTime, :config do
-  let(:config) { RuboCop::Config.new }
 
-  KLASS = "Lint/FluentdPluginConfigParamDefaultTime"
-  WARN_MESSAGE = "#{'^' * 47} #{KLASS}: The value of :interval must be `integer` or `float` for default time value."
+  WARN_MESSAGE = "#{'^' * 47} The value of :interval must be `integer` or `float` for default time value."
 
   it 'registers an offense when using 1s for default value' do
     expect_offense(<<~RUBY)
